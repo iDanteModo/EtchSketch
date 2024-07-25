@@ -57,7 +57,7 @@ function createBoard(value = 16) {
 
         // Add styling to each square, setting the flex basis dynamically
         square.style.cssText = `
-            border: 1px solid white; 
+            border: 0.1px solid white; 
             height: 20px; 
             width: ${percentageWidth}%; 
             box-sizing: border-box;
@@ -82,6 +82,7 @@ function createBoard(value = 16) {
                     const g = randomBetween(0, 255);
                     const b = randomBetween(0, 255);
                     square.style.backgroundColor = `rgb(${r},${g}, ${b})`; 
+                    square.style.borderColor = `rgb(${r},${g}, ${b})`; 
                 } else if ( trigger == true && toggle == true && square.style.backgroundColor != "black") {
                     let currentOpacity = parseFloat(square.style.opacity)
                     let newOpacity = currentOpacity + 0.10;
@@ -93,12 +94,14 @@ function createBoard(value = 16) {
                     let newOpacity = currentOpacity + 0.10;
                     console.log(newOpacity);
                     square.style.opacity = newOpacity
+                    square.style.borderColor = "black";
                     console.log("black");
                 } else if ( trigger == true && square.style.backgroundColor == "black" && toggle == true){
                     const r = randomBetween(0, 255);
                     const g = randomBetween(0, 255);
                     const b = randomBetween(0, 255);
                     square.style.backgroundColor = `rgb(${r},${g}, ${b})`; 
+                    square.style.borderColor = `rgb(${r},${g}, ${b})`; 
                 }
         })
     }
