@@ -1,8 +1,22 @@
 const container = document.querySelector("#container");
 const button = document.querySelector("#btn");
 const resetButton = document.querySelector("#btn2");
+const buttons = document.querySelectorAll("button");
 let trigger = false;
+let toggle = false;
 let size = 16;
+
+
+buttons.forEach(button => {
+     button.addEventListener('mouseenter', () =>{
+        button.style.backgroundColor = "#007bff";
+        button.style.color = "white";
+     })
+     button.addEventListener('mouseout', () => {
+        button.style.backgroundColor = "";
+        button.style.color = "";
+     })
+})
 
 
 container.addEventListener('mousedown', () => {
@@ -12,6 +26,20 @@ container.addEventListener('mousedown', () => {
 container.addEventListener('mouseup',  () => {
     trigger= false;
 })
+
+const toggleButton = document.querySelector("#toggle");
+
+toggleButton.addEventListener('click', () => {
+    if( toggle == false){
+        toggleButton.classList.add('active'); 
+        toggle = true;
+    } else if ( toggle == true) {
+        toggleButton.classList.remove('active');
+        toggle = false;
+    }
+    console.log(toggle);
+    return toggle;
+});
 
 
 function createBoard(value = 16) {
@@ -49,16 +77,28 @@ function createBoard(value = 16) {
         container.appendChild(square);
         square.addEventListener('mouseover', () => {
             const randomBetween = (min, max) => min + Math.floor(Math.random() * (max - min + 1));
-                if(trigger == true && square.style.backgroundColor == "white") {
+                if(trigger == true && square.style.backgroundColor == "white" && toggle == true) {
                     const r = randomBetween(0, 255);
                     const g = randomBetween(0, 255);
                     const b = randomBetween(0, 255);
                     square.style.backgroundColor = `rgb(${r},${g}, ${b})`; 
-                } else if ( trigger == true) {
+                } else if ( trigger == true && toggle == true && square.style.backgroundColor != "black") {
                     let currentOpacity = parseFloat(square.style.opacity)
                     let newOpacity = currentOpacity + 0.10;
                     console.log(newOpacity);
                     square.style.opacity = newOpacity;
+                } else if ( trigger == true  && toggle == false){
+                    square.style.backgroundColor = 'black';
+                    let currentOpacity = parseFloat(square.style.opacity)
+                    let newOpacity = currentOpacity + 0.10;
+                    console.log(newOpacity);
+                    square.style.opacity = newOpacity
+                    console.log("black");
+                } else if ( trigger == true && square.style.backgroundColor == "black" && toggle == true){
+                    const r = randomBetween(0, 255);
+                    const g = randomBetween(0, 255);
+                    const b = randomBetween(0, 255);
+                    square.style.backgroundColor = `rgb(${r},${g}, ${b})`; 
                 }
         })
     }
